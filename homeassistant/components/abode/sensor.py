@@ -12,6 +12,7 @@ from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
     SensorEntityDescription,
+    SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import LIGHT_LUX, PERCENTAGE, UnitOfTemperature
@@ -44,6 +45,7 @@ SENSOR_TYPES: tuple[AbodeSensorDescription, ...] = (
     AbodeSensorDescription(
         key=CONST.TEMP_STATUS_KEY,
         device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement_fn=lambda device: ABODE_TEMPERATURE_UNIT_HA_UNIT[
             device.temp_unit
         ],
@@ -52,12 +54,14 @@ SENSOR_TYPES: tuple[AbodeSensorDescription, ...] = (
     AbodeSensorDescription(
         key=CONST.HUMI_STATUS_KEY,
         device_class=SensorDeviceClass.HUMIDITY,
+        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement_fn=lambda _: PERCENTAGE,
         value_fn=lambda device: cast(float, device.humidity),
     ),
     AbodeSensorDescription(
         key=CONST.LUX_STATUS_KEY,
         device_class=SensorDeviceClass.ILLUMINANCE,
+        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement_fn=lambda _: LIGHT_LUX,
         value_fn=lambda device: cast(float, device.lux),
     ),
